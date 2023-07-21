@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello world</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, delectus. </p>
+    <div id="userid"></div>
+    <div id="sho">
+
+    </div>
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(data => {
+            const id = document.getElementById('userid')
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                const p = document.createElement('p')
+                p.innerHTML = `name ${element.name} phone: ${element.phone} <button onclick="getDetails(${element.id})">click here ${element.id}</button`
+                id.appendChild(p)
+                
+            }
+        })
+        function getDetails(userID){
+            fetch(`https://jsonplaceholder.typicode.com/users/${userID}`)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                const x = document.getElementById('sho')
+                x.innerHTML = `<h1>name: ${res.name}</h1> <h3>phone : ${res.phone}</h3>`
+            })
+        }
+       
+    </script>
+</body>
+</html>
